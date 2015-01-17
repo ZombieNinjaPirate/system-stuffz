@@ -1,0 +1,9 @@
+syntax enable
+colorscheme elflord
+set background=dark
+set encoding=utf8
+set ffs=unix,dos,mac
+set expandtab
+set smarttab
+set shiftwidth=4
+set tabstop=4
