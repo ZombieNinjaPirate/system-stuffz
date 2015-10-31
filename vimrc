@@ -1,5 +1,12 @@
-syntax enable
+set nocompatible
+syntax on
 colorscheme elflord
+set wildmenu
+set showcmd
+set hlsearch
+set backspace=indent,eol,start
+set autoindent
+set number
 set background=dark
 set encoding=utf8
 set ffs=unix,dos,mac
