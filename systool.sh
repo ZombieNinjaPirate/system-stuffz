@@ -61,7 +61,7 @@ case "$1" in
         clear_boot
         ;;
     *)
-        echo "Usage: $Script full_boot"
+        echo "Usage: $Script clean_boot"
         exit 1
         ;;
 esac
