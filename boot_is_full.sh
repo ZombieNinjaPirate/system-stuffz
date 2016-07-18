@@ -29,7 +29,7 @@ declare -rx Script="${0##*/}"
 
 
 # Clears out any obsolete files in /boot
-function clean_boot()
+function clear_boot()
 {
     dpkg --get-selections \
     | grep 'linux-image*' \
@@ -57,8 +57,8 @@ echo "
 
 
 case "$1" in
-    full_boot)
-        clean_boot
+    clean_boot)
+        clear_boot
         ;;
     *)
         echo "Usage: $Script full_boot"
