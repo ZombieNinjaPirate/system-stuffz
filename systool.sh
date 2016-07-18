@@ -25,10 +25,32 @@
 #   WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 #
+set -e
 declare -rx Script="${0##*/}"
 
 
-# Clears out any obsolete files in /boot
+# Script help information.
+function script_help()
+{
+echo "
+    Usage: $Script [argument]
+
+    - Clears out any obsolete files thats filling up the /boot partition.
+    $Script clean_boot
+
+    - Shows this help text.
+    $Script help
+
+    -Preforms apt-get upgrade and apt-get dist-upgrade.
+    $Script dist_upgrade
+
+    - Preforms apt-get upgrade.
+    $Script update
+"
+}
+
+
+# Clears out any obsolete files thats filling up the /boot partition.
 function clear_boot()
 {
     dpkg --get-selections \
@@ -42,16 +64,24 @@ function clear_boot()
 }
 
 
-# Script help information.
-function script_help()
+# Preforms apt-get upgrade
+function apt_get_upgrade()
 {
-echo "
-    Usage: $Script [argument]
+    sudo apt-get update \
+    && sudo apt-get upgrade -y \
+    && sudo apt-get autoremove -y \
+    && sudo apt-get autoclean
+}
 
-    - Clears out any obsolete files in /boot
-    sudo $Script full_boot
 
-"
+# Preforms apt-get upgrade and apt-get dist-upgrade.
+function apt_get_dist_upgrade()
+{
+    sudo apt-get update \
+    && sudo apt-get upgrade -y \
+    && sudo apt-get dist-upgrade -y \
+    && sudo apt-get autoremove -y \
+    && sudo apt-get autoclean
 }
 
 
@@ -60,8 +90,17 @@ case "$1" in
     clean_boot)
         clear_boot
         ;;
+    help)
+        script_help
+        ;;
+    dist_upgrade)
+        apt_get_dist_upgrade
+        ;;
+    update)
+        apt_get_upgrade
+        ;;
     *)
-        echo "Usage: $Script clean_boot"
+        echo "Usage: $Script help"
         exit 1
         ;;
 esac
